@@ -13,8 +13,6 @@ public interface CustomerDAO {
 
 	List<MenuDTO> selectSide();
 
-	List<OrderDTO> orders();
-
 	int insertOrdersList(List<OrderDTO> orders);
 
 	int insertDetailList(OrderDetailDTO orderdetail);
