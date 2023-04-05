@@ -2,17 +2,38 @@ package model.dto;
 
 public class MenuDTO {
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+
 	private String productCode;
 	private String productName;
 	private int price;
 	private int category;
+	private int count; 
 	
 	public MenuDTO() {};
+	
+	public MenuDTO(String productCode, String productName, int price, int category, int count) {
+		this.productCode = productCode;
+		this.productName = productName;
+		this.price = price;
+		this.category = category;
+		this.count = count;
+	}
+
 	public MenuDTO(String productCode, String productName, int price, int category) {
 		this.productCode = productCode;
 		this.productName = productName;
 		this.price = price;
 		this.category = category;
+		
 	}
 	public String getProductCode() {
 		return productCode;
@@ -38,6 +59,9 @@ public class MenuDTO {
 	public void setCategory(int category) {
 		this.category = category;
 	}
+	
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -49,20 +73,8 @@ public class MenuDTO {
 		builder.append(price);
 		builder.append(", category=");
 		builder.append(category);
-		builder.append(", getProductCode()=");
-		builder.append(getProductCode());
-		builder.append(", getProductName()=");
-		builder.append(getProductName());
-		builder.append(", getPrice()=");
-		builder.append(getPrice());
-		builder.append(", getCategory()=");
-		builder.append(getCategory());
-		builder.append(", getClass()=");
-		builder.append(getClass());
-		builder.append(", hashCode()=");
-		builder.append(hashCode());
-		builder.append(", toString()=");
-		builder.append(super.toString());
+		builder.append(", count=");
+		builder.append(count);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -73,8 +73,8 @@ public class MenuView {
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 1) {
+						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
-//					cost -= purchase_List(purchase_List.size() - 1).getCost()
 					}
 					flag = false;
 					break;
@@ -87,9 +87,11 @@ public class MenuView {
 
 				cost += (CustomerController.mainList.get(menu - 1).getPrice()) * cnt;
 				System.out.println("현재 장바구니 상품");
-				purchase_List.add(CustomerController.mainList.get(menu - 1));
+				MenuDTO sub = CustomerController.mainList.get(menu - 1);
+				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
+				purchase_List.add(men);
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() + " ");
+					System.out.print(me.getProductName() +  me.getCount() + " ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
@@ -124,8 +126,8 @@ public class MenuView {
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 2) {
+						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
-//					cost -= purchase_List(purchase_List.size() - 1).getCost()
 					}
 					flag = false;
 					break;
@@ -135,9 +137,11 @@ public class MenuView {
 				// 해당 메뉴의 숫자를 클릭하면 toppList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
 				cost += (CustomerController.toppList.get(menu - 1).getPrice()) * cnt;
 				System.out.println("현재 장바구니 상품");
-				purchase_List.add(CustomerController.toppList.get(menu - 1));
+				MenuDTO sub = CustomerController.toppList.get(menu - 1);
+				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
+				purchase_List.add(men);
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() + " ");
+					System.out.print(me.getProductName() +  me.getCount() + " ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
@@ -173,9 +177,11 @@ public class MenuView {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
 //					purchase_List.remove(purchase_List.size() - 1);
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 3) {
+						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
-//					cost -= purchase_List(purchase_List.size() - 1).getCost()
 					}
+					flag = false;
+					break;
 				}
 
 				System.out.print("수량을 입력하세요 : ");
@@ -185,9 +191,11 @@ public class MenuView {
 				// 임시
 				cost += (CustomerController.sideList.get(menu - 1).getPrice()) * cnt;
 				System.out.println("현재 장바구니 상품");
-				purchase_List.add(CustomerController.sideList.get(menu - 1));
+				MenuDTO sub = CustomerController.sideList.get(menu - 1);
+				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
+				purchase_List.add(men);
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() + " ");
+					System.out.print(me.getProductName() +  me.getCount() + " ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
