@@ -3,10 +3,11 @@ package model.dao;
 import java.util.List;
 
 import model.dto.MenuDTO;
+import model.dto.OrderDTO;
 
 public interface ManagerDAO {
 	
-	List<MenuDTO> selectOrder( );
+	List<OrderDTO> selectOrderAll();
 	
 	List<MenuDTO>  selectMenuAll();
 	
@@ -16,5 +17,5 @@ public interface ManagerDAO {
 	
 	int updateMenu(MenuDTO menuDTO);
 	
-	int selectMenuOne(int menuNumber);
+	MenuDTO selectMenuOne(String productcode);
 }
