@@ -41,7 +41,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			while( rset.next() ) {
 				MenuDTO menuDTO = new MenuDTO();
 				menuDTO.setProductCode(rset.getString("product_code"));
-				menuDTO.setProductName(sql);
+				menuDTO.setProductName(rset.getString("product_name"));
 				menuDTO.setPrice(rset.getInt("price"));
 				menuDTO.setCategory(rset.getInt("category"));
 				
@@ -76,7 +76,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			while( rset.next() ) {
 				MenuDTO menuDTO = new MenuDTO();
 				menuDTO.setProductCode(rset.getString("product_code"));
-				menuDTO.setProductName(sql);
+				menuDTO.setProductName(rset.getString("product_name"));
 				menuDTO.setPrice(rset.getInt("price"));
 				menuDTO.setCategory(rset.getInt("category"));
 				
@@ -112,7 +112,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			while( rset.next() ) {
 				MenuDTO menuDTO = new MenuDTO();
 				menuDTO.setProductCode(rset.getString("product_code"));
-				menuDTO.setProductName(sql);
+				menuDTO.setProductName(rset.getString("product_name"));
 				menuDTO.setPrice(rset.getInt("price"));
 				menuDTO.setCategory(rset.getInt("category"));
 				
@@ -145,7 +145,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			while( rset.next() ) {
 				MenuDTO menuDTO = new MenuDTO();
 				menuDTO.setProductCode(rset.getString("product_code"));
-				menuDTO.setProductName(sql);
+				menuDTO.setProductName(rset.getString("product_name"));
 				menuDTO.setPrice(rset.getInt("price"));
 				menuDTO.setCategory(rset.getInt("category"));
 				
@@ -169,8 +169,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = "insert into orders (order_code, payment_time, total_amount) values (order_seq.nextval, sysdate, ?)";
-		
-//		int orderCount = orders();
 
 		int totalAmount = 0; // 수정 필요
 		
