@@ -97,6 +97,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * */
 	@Override
 	public List<MenuDTO> selectSide() {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

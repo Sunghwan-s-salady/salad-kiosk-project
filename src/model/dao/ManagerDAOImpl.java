@@ -1,45 +1,248 @@
 package model.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import common.DBManager;
+import exception.DMLException;
+import exception.SearchWrongException;
 import model.dto.MenuDTO;
+import model.dto.OrderDTO;
 
 public class ManagerDAOImpl implements ManagerDAO {
-
+	
+	private static ManagerDAOImpl instance = new ManagerDAOImpl();
+	
+	private ManagerDAOImpl() {}
+	public static ManagerDAO getInstance() {
+		return instance;
+	}
+	
+	
+	/**
+	 * @author 서은효
+	 * @return List<OrderDTO>
+	 * 관리자에서 모든 주문 조회하기 
+	 * **/
 	@Override
-	public List<MenuDTO> selectOrder() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderDTO> selectOrderAll() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		List<OrderDTO> list = new ArrayList<>();
+		
+		String sql = "select order_code, payment_time, total_amount, eat_how from orders";
+		
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+				OrderDTO orderDTO = new OrderDTO(
+						rs.getString("order_code"),
+						rs.getString("payment_time"),
+						rs.getInt("total_amount"),
+						rs.getString("eat_how"));
+		
+				list.add(orderDTO);
+			}
+			
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new SearchWrongException("(관리자) 주문 전체 검색 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps, rs);
+		}
+		
+		return list;
 	}
 
+	
+	/**
+	 * @author 서은효
+	 * @return List<MenuDTO>
+	 * 관리자에서 모든 메뉴 조회하기 
+	 * **/
 	@Override
 	public List<MenuDTO> selectMenuAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		List<MenuDTO> list = new ArrayList<>();
+		
+		String sql = "select * from menu";
+		
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while(rs.next()) {
+				MenuDTO menuDTO = new MenuDTO(
+						rs.getString("product_Code"),
+						rs.getString("product_Name"),
+						rs.getInt("price"),
+						rs.getInt("category"));
+				
+				list.add(menuDTO);
+			}
+			
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new SearchWrongException("(관리자) 메뉴 전체 검색 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps, rs);
+		}
+		
+		return list;
 	}
 
+	
+	/**
+	 * @author 서은효
+	 * @return int
+	 * 관리자에서 메뉴 추가하기 
+	 * **/
 	@Override
 	public int insertMenu(MenuDTO menuDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result  = 0;
+
+		String sql = "insert into Menu (product_code, product_name, price, category) values("+
+		"'" + menuDTO.getProductCode()+"'"+","+
+		"'" +menuDTO.getProductName()+"',"+
+		menuDTO.getPrice()+","+
+		menuDTO.getCategory()+")";
+		
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+			result = ps.executeUpdate();
+	
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new DMLException("(관리자) 메뉴 삽입 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps);
+		}
+		
+		return result;
+		
 	}
 
+	/**
+	 * @author 서은효
+	 * @return int
+	 * 관리자에서 메뉴 삭제하기 
+	 * **/
 	@Override
 	public int deleteMenu(String productCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result  = 0;
+
+		String sql = "delete from Menu where product_code =" + "'" + productCode + "'";
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+			result = ps.executeUpdate();
+	
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new DMLException("(관리자) 메뉴 삭제 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps);
+		}
+		
+		return result;
 	}
 
+	
+	/**
+	 * @author 서은효
+	 * @return int 
+	 * 관리자에서 메뉴 수정하기 
+	 * **/
 	@Override
 	public int updateMenu(MenuDTO menuDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result  = 0;
+
+		String sql = "update Menu set product_name =?, price =?, category = ?  "
+				+ "where product_code = ?";
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, menuDTO.getProductName());
+			ps.setInt(2, menuDTO.getPrice());
+			ps.setInt(3, menuDTO.getCategory());
+			ps.setString(4, menuDTO.getProductCode());
+			
+			result = ps.executeUpdate();
+	
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new DMLException("(관리자) 메뉴 수정 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps);
+		}
+		
+		return result;
+
 	}
 
+	/**
+	 * @author 서은효
+	 * @return MenuDTO
+	 * 관리자에서 product_code로 특정 주문 조회하기 
+	 * **/
 	@Override
-	public int selectMenuOne(int menuNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+	public MenuDTO selectMenuOne(String productcode) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		MenuDTO menuDTO = null;
+
+		String sql = "select product_code, product_name, price, category from menu where product_code= "+"'"+productcode+"'";
+		
+		try {
+			con = DBManager.getConnection();
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+
+			if(rs.next()) {
+				menuDTO = new MenuDTO(
+						rs.getString("product_code"),
+						rs.getString("product_name"),
+						rs.getInt("price"),
+						rs.getInt("category"));		
+			}
+			
+		}catch(SQLException e ) {
+			//삭제 
+			e.printStackTrace();
+			throw new SearchWrongException("(관리자) 특정 주문 검색 오류 ");
+		}finally {
+			DBManager.releaseConnection(con, ps, rs);
+		}
+		
+		return menuDTO;
 	}
 
 }

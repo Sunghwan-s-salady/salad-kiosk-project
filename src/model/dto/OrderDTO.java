@@ -5,13 +5,23 @@ public class OrderDTO {
 	private String orderCode;
 	private String paymentTime;
 	private int totalAmount;
+	private String eatHow;
 	
-	public OrderDTO() {};
-	public OrderDTO(String orderCode, String paymentTime, int totalAmount) {
+
+	public OrderDTO(String orderCode, String paymentTime, int totalAmount, String eatHow) {
 		super();
 		this.orderCode = orderCode;
 		this.paymentTime = paymentTime;
 		this.totalAmount = totalAmount;
+		this.eatHow = eatHow;
+	}
+	
+
+	public String getEatHow() {
+		return eatHow;
+	}
+	public void setEatHow(String eatHow) {
+		this.eatHow = eatHow;
 	}
 	public String getOrderCode() {
 		return orderCode;
@@ -45,12 +55,6 @@ public class OrderDTO {
 		builder.append(", getPaymentTime()=");
 		builder.append(getPaymentTime());
 		builder.append(", getTotalAmount()=");
-		builder.append(getTotalAmount());
-		builder.append(", getClass()=");
-		builder.append(getClass());
-		builder.append(", hashCode()=");
-		builder.append(hashCode());
-		builder.append(", toString()=");
 		builder.append(super.toString());
 		builder.append("]");
 		return builder.toString();
