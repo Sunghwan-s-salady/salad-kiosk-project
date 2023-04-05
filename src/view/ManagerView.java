@@ -11,9 +11,8 @@ import model.dao.ManagerDAOImpl;
 import model.dto.MenuDTO;
 import controller.ManagerController;
 
-
 public class ManagerView {
-	
+
 	/**
 	 * 로그인/로그아웃
 	 */
@@ -37,6 +36,7 @@ public class ManagerView {
 				displayService();
 			} else {
 				System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
+				MainView.main(null);
 			}
 		}
 
@@ -56,6 +56,7 @@ public class ManagerView {
 
 			int choice = sc.nextInt();
 			sc.nextLine();
+
 			switch (choice) {
 			case 1:
 				System.out.println("전체 메뉴 확인을 선택하였습니다");
@@ -80,14 +81,20 @@ public class ManagerView {
 				break;
 			case 6:
 				System.out.println("로그아웃을 선택하였습니다");
-				 LogOut();
+				LogOut();
+
+			default:
+				System.out.println("잘못되었습니다..다시 입력해주세요.");
+
 			}
 		}
+
 	}
+
 	/**
-	 * 1. 전체 메뉴 선택 	5. 주문 내역 조회는 controller에서 가져옴
+	 * 1. 전체 메뉴 선택 5. 주문 내역 조회는 controller에서 가져옴
 	 */
-	
+
 	/**
 	 * 2. 메뉴 추가 선택
 	 */
@@ -95,7 +102,7 @@ public class ManagerView {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("새로운 메뉴의 코드를 입력하세요");
 		String productCode = sc.nextLine();
-		
+
 		System.out.println("새로운 메뉴의 이름을 입력하세요");
 		String productName = sc.nextLine();
 
@@ -106,41 +113,41 @@ public class ManagerView {
 
 		MenuDTO menu = new MenuDTO(productCode, productName, price, category);
 		ManagerController.menuInsert(menu);
-	
+
 	}
 
 	/**
 	 * 3. 메뉴 삭제
 	 */
-		public static void inputDeleteMenu() {
+	public static void inputDeleteMenu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("삭제하는 메뉴의 코드를 입력하세요");
-		String productCode = sc.nextLine();
-		ManagerController.menuDelete(productCode);
+		System.out.println("삭제하는 메뉴의 이름를 입력하세요");
+		String productName = sc.nextLine();
+		ManagerController.menuDelete(productName);
 	}
+
 	/**
 	 * 4. 메뉴 변경
 	 */
-		
-		public static void inputUpdateMenu() {
-			Scanner sc = new Scanner(System.in);
-			
-			System.out.println("변경할 메뉴의 코드를 입력하세요");
-			String productCode = sc.nextLine();
-			
-			System.out.println("변경할 메뉴의 이름을 입력하세요");
-			String productName = sc.nextLine();
 
-			System.out.println("변경할 메뉴의 가격은 입력하세요");
-			int price = Integer.parseInt(sc.nextLine());
-			System.out.println("변경할 메뉴의 분류를 입력하세요");
-			int category = Integer.parseInt(sc.nextLine());
+	public static void inputUpdateMenu() {
+		Scanner sc = new Scanner(System.in);
 
+		System.out.println("변경할 메뉴의 코드를 입력하세요");
+		String productCode = sc.nextLine();
 
-			MenuDTO menu = new MenuDTO(productCode, productName, price, category);
-			ManagerController.menuUpdate(menu);
-		}
-	
+		System.out.println("변경할 메뉴의 이름을 입력하세요");
+		String productName = sc.nextLine();
+
+		System.out.println("변경할 메뉴의 가격은 입력하세요");
+		int price = Integer.parseInt(sc.nextLine());
+		System.out.println("변경할 메뉴의 분류를 입력하세요");
+		int category = Integer.parseInt(sc.nextLine());
+
+		MenuDTO menu = new MenuDTO(productCode, productName, price, category);
+		ManagerController.menuUpdate(menu);
+	}
+
 	/**
 	 * 6.로그아웃
 	 */
