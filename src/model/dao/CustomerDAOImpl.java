@@ -13,7 +13,6 @@ import model.dto.OrderDTO;
 import model.dto.OrderDetailDTO;
 
 public class CustomerDAOImpl implements CustomerDAO {
-	List<MenuDTO> menuList = new ArrayList<>();
 	
 	private static CustomerDAOImpl instance = new CustomerDAOImpl();
 	private CustomerDAOImpl() {}
@@ -26,12 +25,13 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * 고객이 선택한 메인 메뉴를 menuList에 담는다.
 	 * */
 	@Override
-	public List<MenuDTO> selectMainMenu() {		
+	public List<MenuDTO> selectMainMenu() {	
+		List<MenuDTO> menuList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "select product_code, product_name, price, category from menu";
+		String sql = "select product_code, product_name, price, category from menu where category = 1";
 		
 		try {
 			con = DBManager.getConnection();
@@ -62,11 +62,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * */
 	@Override
 	public List<MenuDTO> selectTopping() {
+		List<MenuDTO> menuList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "select product_code, product_name, price, category from menu";
+		String sql = "select product_code, product_name, price, category from menu where category = 2 ";
 		
 		try {
 			con = DBManager.getConnection();
@@ -97,12 +98,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * */
 	@Override
 	public List<MenuDTO> selectSide() {
-
+		List<MenuDTO> menuList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = "select product_code, product_name, price, category from menu";
+		String sql = "select product_code, product_name, price, category from menu where category = 3";
 		
 		try {
 			con = DBManager.getConnection();
@@ -131,6 +132,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * 고른 모든 메뉴를 orderList에 담는다.
 	 * */
 	public List<MenuDTO> order() {
+		List<MenuDTO> menuList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

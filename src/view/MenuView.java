@@ -9,16 +9,15 @@ import model.dto.MenuDTO;
 
 public class MenuView {
 
-	static String place;
-	static List<MenuDTO> purchase_List = new ArrayList<>();
-	static int cost;
+	public static String place;
+	public static List<MenuDTO> purchase_List = new ArrayList<>();
+	public static int cost;
 
 	/**
 	 * 포장 방법 선택
 	 */
 	public static void Instore() {
 		cost = 0;
-		purchase_List = null;
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
 		while (flag) {
@@ -56,7 +55,7 @@ public class MenuView {
 	 */
 	public static void SelectMainMenu() {
 		Scanner sc = new Scanner(System.in);
-		List<MenuDTO> mainList = new ArrayList<>();
+		System.out.println();
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============메인메뉴==============");
@@ -65,29 +64,36 @@ public class MenuView {
 			try {
 				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
+
 				// mainList.size보다 menu가 크면 다시 선택
-				if (menu > 2) {
+				if (menu > CustomerController.mainList.size()) {
 					System.out.println("잘못된 입력입니다.");
+					CustomerController.mainList = null;
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
-//					purchase_List.remove(purchase_List.size() - 1);
+					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 1) {
+						purchase_List.remove(purchase_List.size() - 1);
+//					cost -= purchase_List(purchase_List.size() - 1).getCost()
+					}
 					flag = false;
 					break;
 				}
-				
+
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
-				// 해당 메뉴의 숫자를 클릭하면 mainList.get(숫자 - 1)의 (상품코드) 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
-// 				ToppingMainMenu();
-				// 임시
-				if (menu == 1) {
-// 					purchase_List.add(데이터);
-					ToppingMainMenu();
-				} else if (menu == 2) {
-					ToppingMainMenu();
-				}
+				// 해당 메뉴의 숫자를 클릭하면 mainList.get(숫자 - 1)의 (상품코드) 데이터(DTO)를 purchase_List에 넣고 다음
+				// 화면?(토핑)
 
+				cost += (CustomerController.mainList.get(menu - 1).getPrice()) * cnt;
+				System.out.println("현재 장바구니 상품");
+				purchase_List.add(CustomerController.mainList.get(menu - 1));
+				for (MenuDTO me : purchase_List) {
+					System.out.print(me.getProductName() + " ");
+				}
+				System.out.println();
+				System.out.println("현재까지 가격 : " + cost);
+				ToppingMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -99,13 +105,10 @@ public class MenuView {
 	 */
 	public static void ToppingMainMenu() {
 		Scanner sc = new Scanner(System.in);
-		List<MenuDTO> toppList = new ArrayList<>();
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============토핑 추가==============");
-//  			for(MenuDTO topp : toppList){}
-			System.out.println("1. 구운 파인애플 추가");
-			System.out.println("2. 민초 소스 추가");
+			CustomerController.selectTopping();
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
 			try {
@@ -115,26 +118,30 @@ public class MenuView {
 				if (menu == 99) {
 					SideMainMenu();
 					continue;
-				}else if (menu > 2) {
+				} else if (menu > CustomerController.toppList.size()) {
 					System.out.println("잘못된 입력입니다.");
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
-//					purchase_List.remove(purchase_List.size() - 1);
+					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 2) {
+						purchase_List.remove(purchase_List.size() - 1);
+//					cost -= purchase_List(purchase_List.size() - 1).getCost()
+					}
 					flag = false;
 					break;
-				} 
+				}
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 				// 해당 메뉴의 숫자를 클릭하면 toppList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
-// 				SideMainMenu();
-				// 임시
-				if (menu == 1) {
-// 					mainList.add(데이터);
-					SideMainMenu();
-				} else if (menu == 2) {
-					SideMainMenu();
+				cost += (CustomerController.toppList.get(menu - 1).getPrice()) * cnt;
+				System.out.println("현재 장바구니 상품");
+				purchase_List.add(CustomerController.toppList.get(menu - 1));
+				for (MenuDTO me : purchase_List) {
+					System.out.print(me.getProductName() + " ");
 				}
+				System.out.println();
+				System.out.println("현재까지 가격 : " + cost);
+				SideMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -146,13 +153,10 @@ public class MenuView {
 	 */
 	public static void SideMainMenu() {
 		Scanner sc = new Scanner(System.in);
-		List<MenuDTO> sideList = new ArrayList<>();
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============사이드메뉴==============");
-//  			for(MenuDTO side : sideList){}
-			System.out.println("1. 콜라");
-			System.out.println("2. 사이다");
+			CustomerController.selectSideMenu();
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
 			try {
@@ -162,27 +166,32 @@ public class MenuView {
 				if (menu == 99) {
 					SelectPayment();
 					continue;
-				}else if (menu > 2) {
+				} else if (menu > CustomerController.sideList.size()) {
 					System.out.println("잘못된 입력입니다.");
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
 //					purchase_List.remove(purchase_List.size() - 1);
-					flag = false;
-					break;
-				} 
-				
+					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 3) {
+						purchase_List.remove(purchase_List.size() - 1);
+//					cost -= purchase_List(purchase_List.size() - 1).getCost()
+					}
+				}
+
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 
 				// 해당 메뉴의 숫자를 클릭하면 sideList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
 				// 임시
-				if (menu == 1) {
-// 					mainList.add(데이터);
-					SelectPayment();
-				} else if (menu == 2) {
-					SelectPayment();
+				cost += (CustomerController.sideList.get(menu - 1).getPrice()) * cnt;
+				System.out.println("현재 장바구니 상품");
+				purchase_List.add(CustomerController.sideList.get(menu - 1));
+				for (MenuDTO me : purchase_List) {
+					System.out.print(me.getProductName() + " ");
 				}
+				System.out.println();
+				System.out.println("현재까지 가격 : " + cost);
+				SelectPayment();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -207,6 +216,8 @@ public class MenuView {
 				switch (menu) {
 				case 1:
 					System.out.println("결제가 완료 되었습니다.");
+					// 여기서 insert
+					purchase_List = null;
 					Instore();
 					break;
 				case 2:
@@ -214,6 +225,7 @@ public class MenuView {
 					SelectMainMenu();
 					break;
 				case 0:
+					purchase_List = null;
 					Instore();
 					break;
 				}

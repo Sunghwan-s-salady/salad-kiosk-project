@@ -9,7 +9,6 @@ public class MenuDTO {
 	
 	public MenuDTO() {};
 	public MenuDTO(String productCode, String productName, int price, int category) {
-		super();
 		this.productCode = productCode;
 		this.productName = productName;
 		this.price = price;

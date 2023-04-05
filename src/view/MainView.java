@@ -11,9 +11,10 @@ public class MainView {
         System.out.println("1. 관리자 모드");
         System.out.println("2. 주문 모드");
         System.out.println("0. 종료 ");
+        System.out.print("입력 : ");
         try {
-            int menu = Integer.parseInt(sc.nextLine());//
-            switch (menu) {
+            int choice = Integer.parseInt(sc.nextLine());//
+            switch (choice) {
               case 1:
                 ManagerView.Login();
                 break;

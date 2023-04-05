@@ -14,15 +14,18 @@ import view.SuccessView;
 
 public class CustomerController {	
 	static CustomerDAO customerDAO = CustomerDAOImpl.getInstance();
-	static List<MenuDTO> menuList = new ArrayList<>();
-
+	public static List<MenuDTO> menuList = new ArrayList<>();
+	public static List<MenuDTO> mainList = new ArrayList<>();
+	public static List<MenuDTO> toppList = new ArrayList<>();
+	public static List<MenuDTO> sideList = new ArrayList<>();
    /**
     * @author 박예린
     * 
     * */
 	public static void selectMainMenu() throws SearchWrongException {
         try {
-        	SuccessView.selectMenuPrint(customerDAO.selectMainMenu());
+        	mainList = customerDAO.selectMainMenu();
+        	SuccessView.selectMenuPrint(mainList);
 	   } catch(SearchWrongException e) {
 			   FailView.errorMessage(e.getMessage());
 	   }
@@ -30,7 +33,8 @@ public class CustomerController {
 	
 	public static void selectTopping() throws SearchWrongException {
         try {
-        	SuccessView.selectMenuPrint(customerDAO.selectTopping());
+        	toppList = customerDAO.selectTopping();
+        	SuccessView.selectMenuPrint(toppList);
 
 	   } catch(SearchWrongException e) {
 			   FailView.errorMessage(e.getMessage());
@@ -39,7 +43,8 @@ public class CustomerController {
 	
 	public static void selectSideMenu() throws SearchWrongException {
         try {
-        	SuccessView.selectMenuPrint(customerDAO.selectSide());
+        	sideList = customerDAO.selectSide();
+        	SuccessView.selectMenuPrint(sideList);
 	   } catch(SearchWrongException e) {
 			   FailView.errorMessage(e.getMessage());
 	   }
