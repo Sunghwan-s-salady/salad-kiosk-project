@@ -65,9 +65,9 @@ public class ManagerController {
 	 * @return int 
 	 * 관리자에서 메뉴를 삭제   
 	 */
-	public static void menuDelete(String productCode) {
+	public static void menuDelete(String productName) {
 		try {
-			int result = manager.deleteMenu(productCode);
+			int result = manager.deleteMenu(productName);
 			if(result == 1) 
 				SuccessView.messagePrint("메뉴가 성공적으로 삭제되었습니다.");
 			
