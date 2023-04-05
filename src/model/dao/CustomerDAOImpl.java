@@ -97,17 +97,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * */
 	@Override
 	public List<MenuDTO> selectSide() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	
-	@Override
-	public List<OrderDTO> orders() {
-		// TODO Auto-generated method stub
-		return null;
-=======
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -134,7 +124,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 			DBManager.releaseConnection( con, pstmt ,rset);
 		}
 		return menuList;
->>>>>>> 1be7424e4f0c36330ee311953e07912d03843edc
 	}
 
 	/**
