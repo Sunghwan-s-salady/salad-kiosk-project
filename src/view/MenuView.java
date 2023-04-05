@@ -225,6 +225,9 @@ public class MenuView {
 				case 1:
 					System.out.println("결제가 완료 되었습니다.");
 					// 여기서 insert
+					CustomerController.insertOrdersList();
+					CustomerController.orderDetailInsert();
+					
 					purchase_List = null;
 					Instore();
 					break;

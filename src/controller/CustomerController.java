@@ -8,8 +8,10 @@ import exception.SearchWrongException;
 import model.dao.CustomerDAO;
 import model.dao.CustomerDAOImpl;
 import model.dto.MenuDTO;
+import model.dto.OrderDTO;
 import model.dto.OrderDetailDTO;
 import view.FailView;
+import view.MenuView;
 import view.SuccessView;
 
 public class CustomerController {	
@@ -57,31 +59,38 @@ public class CustomerController {
 	
 	/**
     * @author 박예린
+    * 메인 메뉴, 토핑 추가, 사이드 메뉴 선택 후 OrderDTO에 담는다.
+    * insertOrdersList
+    * */
+	public static int insertOrdersList() throws SearchWrongException {
+		int result = 0;
+		
+		MenuDTO menuDTO = new MenuDTO();
+		// 이 놈 안에 MenuDTO가 있어 => 이거로  OrderDetailDTO를 만들어 
+		
+		
+		OrderDTO order = new OrderDTO(MenuView.cost, MenuView.place);
+		customerDAO.insertOrdersList(order);
+
+        return result;
+    }
+	
+	/**
+    * @author 박예린
     * 메인 메뉴, 토핑 추가, 사이드 메뉴 선택 후 OrderDetailDTO orderDetail에 담는다.
+    * insertDetailList
     * */
 	public static int orderDetailInsert() throws SearchWrongException {
 		int result = 0;
 		
-		OrderDetailDTO orderDetail = new OrderDetailDTO();
-		/*orderDetail.
+		MenuDTO menuDTO = new MenuDTO();
+		// 이 놈 안에 MenuDTO가 있어 => 이거로  OrderDetailDTO를 만들어 
 		
-		String sql = "select product_code, product_name, price, category from menu";
-		
-		CREATE TABLE Orders_detail (
-				  detail_code VARCHAR2(20)  NOT NULL,
-				  product_code VARCHAR2(20) REFERENCES Menu(product_code) NOT NULL,
-				  order_count NUMBER NOT NULL,
-				  order_price NUMBER NOT NULL,
-				  order_code VARCHAR2(20) REFERENCES Orders(order_code) NOT NULL
-				);
-
-
-		
-		while(menuList.size()) {
-			BoardDTO dto = new BoardDTO(rs.getInt("BOARD_NO"), rs.getString("SUBJECT"), 
-					rs.getString("WRITER"), rs.getString("CONTENT"), rs.getString("BOARD_DATE"));
-			list.add(dto);
-		}*/
+		for(MenuDTO me : MenuView.purchase_List) {
+			OrderDetailDTO orderDetail = new OrderDetailDTO(me.getProductCode(), menuDTO.getCount(), MenuView.cost); // orderCount 수정해야함
+			// 만든 거를 insert
+			customerDAO.insertDetailList(orderDetail);
+		}
 
         return result;
     }

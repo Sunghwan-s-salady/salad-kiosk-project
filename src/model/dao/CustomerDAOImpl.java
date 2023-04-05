@@ -166,27 +166,28 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * 주문 정보를 order table에 insert한다.
 	 * */
 	@Override
-	public int insertOrdersList(List<OrderDTO> orders) {
+	public int insertOrdersList(OrderDTO orders) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = "insert into orders (order_code, payment_time, total_amount) values (order_seq.nextval, sysdate, ?)";
-
-		int totalAmount = 0; // 수정 필요
+		String sql = "insert into orders (order_code, payment_time, total_amount, eat_how) values (order_seq.nextval, to_char(sysdate, 'RRRR-MM-DD HH24:MI:SS'), ?, ?)";
+				
 		
 		try {
 			con = DBManager.getConnection();
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(3, totalAmount);
+			pstmt.setInt(1, orders.getTotalAmount());
+			pstmt.setString(2, orders.getEatHow());
 			
 			result = pstmt.executeUpdate();
-
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			DBManager.releaseConnection( con, pstmt);
 		}
+		
+
 		return result;
 	}
 	
@@ -200,7 +201,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String sql = "insert into order_detail (detail_code, product_code, order_count, order_price, order_code) values (detail_seq.nextval, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) "
+				+ "VALUES (detail_seq.nextval, ?, ?, ?, (select order_code from orders where payment_time = (select max(payment_time) from orders)))";
 		
 		String productCode = orderDetail.getProductCode();
 		int orderCount = orderDetail.getOrderCount();
@@ -208,16 +210,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 		String orderCode = orderDetail.getOrderCode();
 		
 		try {
+			
+			
 			con = DBManager.getConnection();
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(2, productCode);
-			pstmt.setInt(3, orderCount);
-			pstmt.setInt(4, orderPrice);
-			pstmt.setString(5, orderCode);
+			pstmt.setString(1, productCode);
+			pstmt.setInt(2, orderCount);
+			pstmt.setInt(3, orderPrice);
 			
 			result = pstmt.executeUpdate();
-
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

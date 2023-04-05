@@ -1,5 +1,7 @@
 package model.dto;
 
+import view.MenuView;
+
 public class OrderDetailDTO {
 
 	private String detailCode;
@@ -7,9 +9,17 @@ public class OrderDetailDTO {
 	private int orderCount;
 	private int orderPrice;
 	private String orderCode;
-
 	
 	public OrderDetailDTO() {};
+	
+	public OrderDetailDTO(String productCode, int orderCount, int orderPrice) {
+		super();
+		this.productCode = productCode;
+		this.orderCount = orderCount;
+		this.orderPrice = orderPrice;
+	}
+	
+	
 	public OrderDetailDTO(String detailCode, String productCode, int orderCount, int orderPrice, String orderCode) {
 		super();
 		this.detailCode = detailCode;

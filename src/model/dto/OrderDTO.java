@@ -1,6 +1,6 @@
 package model.dto;
 
-import java.util.List;
+import view.MenuView;
 
 public class OrderDTO {
 
@@ -9,8 +9,11 @@ public class OrderDTO {
 	private int totalAmount;
 	private String eatHow;
 	
-
-
+	public OrderDTO() {}
+	public OrderDTO(int cost, String place) {
+		this.totalAmount = cost;
+		this.eatHow = place;
+	}
 	public OrderDTO(String orderCode, String paymentTime, int totalAmount, String eatHow) {
 		super();
 		this.orderCode = orderCode;
