@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import model.dao.CustomerDAOImpl;
+import controller.CustomerController;
 import model.dto.MenuDTO;
 
 public class MenuView {
@@ -60,10 +60,7 @@ public class MenuView {
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============메인메뉴==============");
-// 			for(MenuDTO main : mainList){}
-// 			System.out.println((index + 1) + main.(index).getName );
-			System.out.println("1. 로스트 닭다리살 샐러드");
-			System.out.println("2. 우삼겹 샐러드");
+			CustomerController.selectMainMenu();
 			System.out.println("0. 이전으로 ");
 			try {
 				System.out.print("입력 : ");
