@@ -27,6 +27,7 @@ public class MenuView {
 			System.out.println("2. 포장");
 			System.out.println("0. 처음으로 ");
 			try {
+				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());//
 				switch (menu) {
 				case 1:
@@ -65,6 +66,7 @@ public class MenuView {
 			System.out.println("2. 우삼겹 샐러드");
 			System.out.println("0. 이전으로 ");
 			try {
+				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
 				// mainList.size보다 menu가 크면 다시 선택
 				if (menu > 2) {
@@ -77,7 +79,7 @@ public class MenuView {
 					break;
 				}
 				
-				System.out.println("수량을 입력하세요");
+				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 				// 해당 메뉴의 숫자를 클릭하면 mainList.get(숫자 - 1)의 (상품코드) 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
 // 				ToppingMainMenu();
@@ -110,6 +112,7 @@ public class MenuView {
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
 			try {
+				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
 				// toppList.size보다 menu가 크면 다시 선택
 				if (menu == 99) {
@@ -124,7 +127,7 @@ public class MenuView {
 					flag = false;
 					break;
 				} 
-				System.out.println("수량을 입력하세요");
+				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 				// 해당 메뉴의 숫자를 클릭하면 toppList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
 // 				SideMainMenu();
@@ -156,6 +159,7 @@ public class MenuView {
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
 			try {
+				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
 				// sideList.size보다 menu가 크면 다시 선택
 				if (menu == 99) {
@@ -171,7 +175,7 @@ public class MenuView {
 					break;
 				} 
 				
-				System.out.println("수량을 입력하세요");
+				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 
 				// 해당 메뉴의 숫자를 클릭하면 sideList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
@@ -201,6 +205,7 @@ public class MenuView {
 			System.out.println("2. 추가 구매");
 			System.out.println("0. 처음으로 ");
 			try {
+				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());//
 				switch (menu) {
 				case 1:
