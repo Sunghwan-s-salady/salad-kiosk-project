@@ -5,10 +5,10 @@ public class MenuDTO {
 	private String productCode;
 	private String productName;
 	private int price;
-	private String category;
+	private int category;
 	
 	public MenuDTO() {};
-	public MenuDTO(String productCode, String productName, int price, String category) {
+	public MenuDTO(String productCode, String productName, int price, int category) {
 		super();
 		this.productCode = productCode;
 		this.productName = productName;
@@ -33,10 +33,10 @@ public class MenuDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 	@Override
