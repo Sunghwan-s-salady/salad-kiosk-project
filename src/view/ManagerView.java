@@ -20,8 +20,8 @@ public class ManagerView {
 
 		Scanner sc = new Scanner(System.in);
 		boolean logIn = false;
-		String adminId = "admin";
-		String adminPw = "password";
+		String adminId = "a";
+		String adminPw = "a";
 
 		System.out.println("=====로그인=====");
 		while (!logIn) {
@@ -133,19 +133,17 @@ public class ManagerView {
 	public static void inputUpdateMenu() {
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("변경할 메뉴의 코드를 입력하세요");
-		String productCode = sc.nextLine();
-
 		System.out.println("변경할 메뉴의 이름을 입력하세요");
 		String productName = sc.nextLine();
-
-		System.out.println("변경할 메뉴의 가격은 입력하세요");
-		int price = Integer.parseInt(sc.nextLine());
-		System.out.println("변경할 메뉴의 분류를 입력하세요");
-		int category = Integer.parseInt(sc.nextLine());
-
-		MenuDTO menu = new MenuDTO(productCode, productName, price, category);
-		ManagerController.menuUpdate(menu);
+		
+		System.out.println("무엇을 변경하실껀가요?(이름, 가격, 분류)");
+		String updatecolumn = sc.nextLine();
+		
+		System.out.println("변경할 내용을 입력해주세요.");
+		String updatecontent = sc.nextLine();
+		
+	
+		ManagerController.menuUpdate(productName, updatecolumn, updatecontent);
 	}
 
 	/**

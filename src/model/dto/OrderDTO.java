@@ -1,5 +1,7 @@
 package model.dto;
 
+import java.util.List;
+
 public class OrderDTO {
 
 	private String orderCode;
@@ -7,6 +9,7 @@ public class OrderDTO {
 	private int totalAmount;
 	private String eatHow;
 	
+
 
 	public OrderDTO(String orderCode, String paymentTime, int totalAmount, String eatHow) {
 		super();

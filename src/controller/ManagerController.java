@@ -81,9 +81,9 @@ public class ManagerController {
 	 * @return int 
 	 * 관리자에서 메뉴를 수정 
 	 */
-	public static void menuUpdate(MenuDTO menu) {
+	public static void menuUpdate(String name, String updateMenu, String updateContent) {
 		try {
-			int result = manager.updateMenu(menu);
+			int result = manager.updateMenu(name, updateMenu, updateContent);
 			if(result == 1) {
 				SuccessView.messagePrint("메뉴가 성공적으로 수정되었습니다.");
 			}

@@ -174,24 +174,32 @@ public class ManagerDAOImpl implements ManagerDAO {
 	 * @author 서은효
 	 * @return int 
 	 * 관리자에서 메뉴 수정하기 
+	 * @param menuDTO, updateMenu( 어떤 컬럼을 수정할 것인가?) 
 	 * **/
 	@Override
-	public int updateMenu(MenuDTO menuDTO) {
+	public int updateMenu(String name, String updateMenu, String updateContent) {
+		
+
+		String sql = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result  = 0;
 
-		String sql = "update Menu set product_name =?, price =?, category = ?  "
-				+ "where product_code = ?";
 		try {
+			
+			if( updateMenu.equals("이름"))
+				sql = "update Menu set product_name = " + "'" + updateContent + "'"
+				+ " where product_name = "+ "'" + name + "'";
+			else if(updateMenu.equals("가격"))
+				sql = "update Menu set price = " + updateContent 
+				+ " where product_name = "+ "'" + name + "'";
+			else if(updateMenu.equals("분류"))
+				sql = "update Menu set category = "+ updateContent 
+						+ " where product_name = "+ "'" + name + "'";
+			else throw new DMLException("이름 똑바로 입력해 ");
+
 			con = DBManager.getConnection();
 			ps = con.prepareStatement(sql);
-			
-			ps.setString(1, menuDTO.getProductName());
-			ps.setInt(2, menuDTO.getPrice());
-			ps.setInt(3, menuDTO.getCategory());
-			ps.setString(4, menuDTO.getProductCode());
-			
 			result = ps.executeUpdate();
 	
 		}catch(SQLException e ) {

@@ -7,6 +7,7 @@ public class OrderDetailDTO {
 	private int orderCount;
 	private int orderPrice;
 	private String orderCode;
+
 	
 	public OrderDetailDTO() {};
 	public OrderDetailDTO(String detailCode, String productCode, int orderCount, int orderPrice, String orderCode) {

@@ -15,7 +15,7 @@ public interface ManagerDAO {
 	
 	int deleteMenu(String productName);
 	
-	int updateMenu(MenuDTO menuDTO);
+	int updateMenu(String name, String updateMenu,String updateContent);
 	
 	MenuDTO selectMenuOne(String productcode);
 }
