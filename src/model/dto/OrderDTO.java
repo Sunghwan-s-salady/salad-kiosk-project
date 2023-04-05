@@ -44,18 +44,12 @@ public class OrderDTO {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("OrderDTO [orderCode=");
+		builder.append("<성환's 샐러드> 주문내역 [주문코드=");
 		builder.append(orderCode);
-		builder.append(", paymentTime=");
+		builder.append(", 주문시간=");
 		builder.append(paymentTime);
-		builder.append(", totalAmount=");
+		builder.append(", 주문총액=");
 		builder.append(totalAmount);
-		builder.append(", getOrderCode()=");
-		builder.append(getOrderCode());
-		builder.append(", getPaymentTime()=");
-		builder.append(getPaymentTime());
-		builder.append(", getTotalAmount()=");
-		builder.append(super.toString());
 		builder.append("]");
 		return builder.toString();
 	}
