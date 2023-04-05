@@ -22,7 +22,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * @author ifiam
+	 * @author 박예린
 	 * 고객이 선택한 메인 메뉴를 menuList에 담는다.
 	 * */
 	@Override
@@ -57,7 +57,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * 작성자 : 
+	 * @author 박예린
 	 * 고객이 선택한 토핑을 menuList에 담는다.
 	 * */
 	@Override
@@ -92,7 +92,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * 작성자 : 
+	 * @author 박예린
 	 * 고객이 선택한 사이드 메뉴를 menuList에 담는다.
 	 * */
 	@Override
@@ -125,9 +125,42 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return menuList;
 	}
+	
+	/**
+	 * @author 박예린
+	 * 고른 모든 메뉴를 orderList에 담는다.
+	 * */
+	public List<MenuDTO> order() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = "select product_code, product_name, price, category from menu";
+		
+		try {
+			con = DBManager.getConnection();
+			pstmt = con.prepareStatement(sql);			
+			rset = pstmt.executeQuery();
+			
+			while( rset.next() ) {
+				MenuDTO menuDTO = new MenuDTO();
+				menuDTO.setProductCode(rset.getString("product_code"));
+				menuDTO.setProductName(sql);
+				menuDTO.setPrice(rset.getInt("price"));
+				menuDTO.setCategory(rset.getInt("category"));
+				
+				menuList.add(menuDTO);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.releaseConnection( con, pstmt ,rset);
+		}
+		return menuList;
+	}
 
 	/**
-	 * 작성자 : 
+	 * @author 박예린
 	 * 주문 정보를 order table에 insert한다.
 	 * */
 	@Override
@@ -137,6 +170,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		int result = 0;
 		String sql = "insert into orders (order_code, payment_time, total_amount) values (order_seq.nextval, sysdate, ?)";
 		
+//		int orderCount = orders();
+
 		int totalAmount = 0; // 수정 필요
 		
 		try {
@@ -156,27 +191,26 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 	
 	/**
-	 * 작성자 : 
+	 * @author 박예린
 	 * 고객이 주문한 메뉴를 order_detail table에 insert한다.
 	 * */
 	@Override
-	public int insertDetailList(OrderDetailDTO orderdetail) {
+	public int insertDetailList(OrderDetailDTO orderDetail) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int result = 0;
+
 		String sql = "insert into order_detail (detail_code, product_code, order_count, order_price, order_code) values (detail_seq.nextval, ?, ?, ?, ?)";
 		
-		String detailCode = "example001"; // 수정 필요
-		String productCode = "example001"; // 수정 필요
-		int orderCount = 0; // 수정 필요
-		int orderPrice = 0; // 수정 필요
-		String orderCode = "example001"; // 수정 필요
+		String productCode = orderDetail.getProductCode();
+		int orderCount = orderDetail.getOrderCount();
+		int orderPrice = orderDetail.getOrderPrice();
+		String orderCode = orderDetail.getOrderCode();
 		
 		try {
 			con = DBManager.getConnection();
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, detailCode);
 			pstmt.setString(2, productCode);
 			pstmt.setInt(3, orderCount);
 			pstmt.setInt(4, orderPrice);
