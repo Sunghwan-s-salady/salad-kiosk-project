@@ -13,7 +13,7 @@ public interface ManagerDAO {
 	
 	int insertMenu(MenuDTO menuDTO);
 	
-	int deleteMenu(String productCode);
+	int deleteMenu(String productName);
 	
 	int updateMenu(MenuDTO menuDTO);
 	

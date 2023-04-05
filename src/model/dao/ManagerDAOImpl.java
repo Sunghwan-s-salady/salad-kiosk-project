@@ -147,12 +147,12 @@ public class ManagerDAOImpl implements ManagerDAO {
 	 * 관리자에서 메뉴 삭제하기 
 	 * **/
 	@Override
-	public int deleteMenu(String productCode) {
+	public int deleteMenu(String productName) {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result  = 0;
 
-		String sql = "delete from Menu where product_code =" + "'" + productCode + "'";
+		String sql = "delete from Menu where product_name =" + "'" + productName + "'";
 		try {
 			con = DBManager.getConnection();
 			ps = con.prepareStatement(sql);
