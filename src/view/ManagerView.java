@@ -3,7 +3,7 @@ package view;
 import java.util.InputMismatchException;
 
 /**
- * @author hyein
+ * @author 김혜인
  */
 
 import java.util.Scanner;
@@ -14,6 +14,7 @@ import controller.ManagerController;
 public class ManagerView {
 
 	/**
+	 * @author 김혜인
 	 * 로그인/로그아웃
 	 */
 	public static void Login() {
@@ -45,6 +46,7 @@ public class ManagerView {
 	}
 	
 	/**
+	 * @author 김혜인
 	 * 관리자 메뉴
 	 * */
 	public static void displayService() {
@@ -105,10 +107,12 @@ public class ManagerView {
 	}
 
 	/**
+	 * @author 김혜인
 	 * 1. 전체 메뉴 선택 5. 주문 내역 조회는 controller에서 가져옴
 	 */
 
 	/**
+	 * @author 김혜인
 	 * 2. 메뉴 추가 선택
 	 */
 	public static void inputInsertMenu() {
@@ -134,6 +138,7 @@ public class ManagerView {
 	}
 
 	/**
+	 * @author 김혜인
 	 * 3. 메뉴 삭제
 	 */
 	public static void inputDeleteMenu() {
@@ -145,6 +150,7 @@ public class ManagerView {
 	}
 
 	/**
+	 * @author 김혜인
 	 * 4. 메뉴 변경
 	 */
 
@@ -164,6 +170,7 @@ public class ManagerView {
 		ManagerController.menuUpdate(productName, updatecolumn, updatecontent);
 	}
 	/**
+	 * @author 김혜인
 	 * 6. 카테고리별 가장 많이 인기있는 제품 확인
 	 */
 	
@@ -178,6 +185,7 @@ public class ManagerView {
 
 
 	/**
+	 * @author 김혜인
 	 * 7.로그아웃
 	 */
 	public static void LogOut() {

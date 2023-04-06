@@ -16,6 +16,7 @@ public class MenuView {
 	static boolean fl;
 
 	/**
+	 * @author 조성환
 	 * 포장 방법 선택
 	 */
 	public static void Instore() {
@@ -57,6 +58,7 @@ public class MenuView {
 	}
 
 	/**
+	 * @author 조성환
 	 * 메인 메뉴
 	 */
 	public static void SelectMainMenu() {
@@ -121,7 +123,8 @@ public class MenuView {
 	}
 
 	/**
-	 * 토핑 선택...
+	 * @author 조성환
+	 * 토핑 선택.
 	 */
 	public static void ToppingMainMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -181,7 +184,8 @@ public class MenuView {
 	}
 
 	/**
-	 * 사이드 선택...
+	 * @author 조성환
+	 * 사이드 선택.
 	 */
 	public static void SideMainMenu() {
 		Scanner sc = new Scanner(System.in);
@@ -243,7 +247,8 @@ public class MenuView {
 	}
 
 	/**
-	 * 결제 선택...
+	 * @author 조성환
+	 * 결제 선택.
 	 */
 	public static void SelectPayment() {
 		Scanner sc = new Scanner(System.in);
