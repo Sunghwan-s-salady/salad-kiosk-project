@@ -29,7 +29,6 @@ public class MainView {
 			} catch (NumberFormatException e) {
 				System.out.println("메뉴는 숫자만 가능합니다.");
 			}
-			sc.close();
 		}
 	}
 
