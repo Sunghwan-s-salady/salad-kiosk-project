@@ -42,8 +42,8 @@ KB IT's your life 5조 미니프로젝트
 		
 		![image](https://user-images.githubusercontent.com/89370421/230292782-a362898c-93f1-4c8e-b440-36a5d79ddb9a.png)
 		
-	## MVC 모델
-	![image](https://user-images.githubusercontent.com/89370421/230292889-355e66a0-2574-4439-a55d-55bed83fcbe3.png)
+## MVC 모델
+![image](https://user-images.githubusercontent.com/89370421/230292889-355e66a0-2574-4439-a55d-55bed83fcbe3.png)
 
 ## 주요 기능 
  - 관리자 
@@ -51,7 +51,7 @@ KB IT's your life 5조 미니프로젝트
  - 고객
   : 주문 / 선택 / 결제
 	
-	![image](https://user-images.githubusercontent.com/89370421/230293112-69631abf-99ba-4122-ac99-bf712f49ce16.png)
+![image](https://user-images.githubusercontent.com/89370421/230293112-69631abf-99ba-4122-ac99-bf712f49ce16.png)
 
 ## DAO
 ![image](https://user-images.githubusercontent.com/89370421/230293164-8f72c53e-c39c-414e-be98-afec585c47a5.png)
