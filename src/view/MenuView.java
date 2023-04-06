@@ -63,8 +63,10 @@ public class MenuView {
 			System.out.println("==============메인메뉴==============");
 			// 현재 장바구니 보여주기
 			System.out.print("현재 장바구니 상품 :");
-			for (MenuDTO me : purchase_List) {
-				System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+			if(purchase_List.size() > 0) {				
+				for (MenuDTO me : purchase_List) {
+					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+				}
 			}
 			System.out.println();
 			System.out.println("현재까지 가격 : " + cost);
@@ -253,7 +255,7 @@ public class MenuView {
 					CustomerController.orderDetailInsert();
 					
 					// 초기 화면 진입시 장바구니 초기화
-					purchase_List = null;
+					purchase_List = new ArrayList<>();
 					Instore();
 					break;
 				case 2:
@@ -263,7 +265,7 @@ public class MenuView {
 					break;
 				case 0:
 					// 초기 화면 진입시 장바구니 초기화
-					purchase_List = null;
+					purchase_List = new ArrayList<>();
 					Instore();
 					break;
 				}
