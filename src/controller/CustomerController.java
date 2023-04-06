@@ -82,10 +82,10 @@ public class CustomerController {
 	 */
 	public static int orderDetailInsert() throws SearchWrongException {
 		int result = 0;
-		MenuDTO menuDTO = new MenuDTO();
 		
 		for(MenuDTO me : MenuView.purchase_List) {
-			OrderDetailDTO orderDetail = new OrderDetailDTO(me.getProductCode(), menuDTO.getCount(), MenuView.cost);
+			int cost = me.getCount() * me.getPrice();
+			OrderDetailDTO orderDetail = new OrderDetailDTO(me.getProductCode(), me.getCount(), cost);
 			result = customerDAO.insertDetailList(orderDetail);
 		}
 		

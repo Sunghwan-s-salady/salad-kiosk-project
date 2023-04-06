@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import common.DBManager;
 import model.dto.MenuDTO;
@@ -156,7 +157,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1, orders.getTotalAmount());
-			pstmt.setString(2, orders.getEatHow());
+
+			// DB에 있는 값과 통일하기 위해 사용하는 method
+			String eatHow = orders.getEatHow();
+			
+			if(Objects.equals("매장", eatHow)) {
+				eatHow = "먹고가기";
+			} else if(Objects.equals("포장", eatHow)) {
+				eatHow = "포장하기";
+			}
+			
+			pstmt.setString(2, eatHow);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
