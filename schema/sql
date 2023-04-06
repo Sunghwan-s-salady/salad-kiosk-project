@@ -1,0 +1,101 @@
+--시퀀스생성
+CREATE SEQUENCE product_code_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+--시퀀스생성
+CREATE SEQUENCE detail_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+--시퀀스생성
+CREATE SEQUENCE order_seq
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+-- P + 시퀀스 결합
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')) AS product_code
+FROM dual;
+
+-- TABLE 만들기
+CREATE TABLE Menu (
+  product_code VARCHAR2(20) PRIMARY KEY NOT NULL,
+  product_name VARCHAR2(50) NOT NULL,
+  price NUMBER NOT NULL,
+  category NUMBER NOT NULL
+); 
+CREATE TABLE Orders(
+  order_code VARCHAR2(20) PRIMARY KEY NOT NULL,
+  payment_time VARCHAR2(20) NOT NULL,
+  total_amount NUMBER NOT NULL,
+  eat_how VARCHAR2(20) NOT NULL
+);
+
+CREATE TABLE Orders_detail (
+  detail_code VARCHAR2(20)  NOT NULL,
+  product_code VARCHAR2(20) REFERENCES Menu(product_code) NOT NULL,
+  order_count NUMBER NOT NULL,
+  order_price NUMBER NOT NULL,
+  order_code VARCHAR2(20) REFERENCES Orders(order_code) NOT NULL
+);
+
+SELECT * FROM MENU;
+-- Menu 테이블에 예제 데이터 추가
+
+INSERT INTO Menu (product_code, product_name, price, category) VALUES ('P001', '로스트닭다리살셀러드', 8000, 1);
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '연어셀러드', 10000, 1 FROM dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '우삽겹셀러드', 9000, 1 FROM dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '탄단지셀러드', 7500, 1 FROM dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '왕새우셀러드', 8000, 1 FROM dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),  '닭가슴살셀러드', 9000, 1 FROM dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '리코타치즈셀러드', 8000, 1 FROM dual;
+
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '리코타치즈', 2000, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),'방울토마토', 1000, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),'두부', 2000, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '연어', 3000, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),'쉬림프', 2500, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),'베이컨', 1500, 2 from dual;
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')), '삶은계란', 1000, 2 from dual; 
+
+INSERT INTO Menu (product_code, product_name, price, category)
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),  '콜라', 1000, 3 from dual; 
+INSERT INTO Menu (product_code, product_name, price, category)
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),  '사이다', 1000, 3 from dual; 
+INSERT INTO Menu (product_code, product_name, price, category) 
+SELECT CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),  '아메리카노', 1000, 3 from dual; 
+       
+select * from menu;
+-- Orders 테이블에 예제 데이터 추가
+INSERT INTO Orders (order_code, payment_time, total_amount, eat_how) VALUES ('O001', '2023-04-01 10:30:00', 9000, '먹고가기');
+INSERT INTO Orders (order_code, payment_time, total_amount, eat_how) VALUES ('O002', '2023-04-01 11:15:00', 7500, '포장하기');
+INSERT INTO Orders (order_code, payment_time, total_amount, eat_how) VALUES ('O003', '2023-04-01 11:30:00', 11000, '먹고가기');
+INSERT INTO Orders (order_code, payment_time, total_amount, eat_how) VALUES ('O004', '2023-04-01 11:45:00', 10000,'포장하기');
+INSERT INTO Orders (order_code, payment_time, total_amount, eat_how) VALUES ('O005', '2023-04-01 12:00:00', 16000,'포장하기');
+       
+-- Order_detail 테이블에 예제 데이터 추가
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D001', 'P001', 1, 8000, 'O001');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D001', 'P009', 1, 1000, 'O001');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D002', 'P004', 1, 7500, 'O002');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D003', 'P005', 1, 8000, 'O003');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D003', 'P015', 1, 2000, 'O003');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D003', 'P009', 1, 1000, 'O003');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D004', 'P003', 1, 9000, 'O004');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D004', 'P016', 1, 1000, 'O004');
+INSERT INTO Orders_detail (detail_code, product_code, order_count, order_price, order_code) VALUES ('D005', 'P007', 2, 16000, 'O005');
