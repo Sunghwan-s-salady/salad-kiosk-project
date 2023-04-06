@@ -62,6 +62,6 @@ KB IT's your life 5조 미니프로젝트
 
 ![image](https://user-images.githubusercontent.com/89370421/230293273-b8e206ff-dcd1-4027-ae15-404fdc9603cb.png)
 
-## 결론
+## 후기
 
 ![image](https://user-images.githubusercontent.com/89370421/230293346-384860ac-9d92-4b1a-97fb-944d21fe7942.png)
