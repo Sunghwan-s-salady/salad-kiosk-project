@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dto.MenuDTO;
 import model.dto.OrderDTO;
+import model.dto.RankDTO;
 
 
 
@@ -19,6 +20,15 @@ public class SuccessView {
 		}
 		
 	}
+	
+	public static void selectRankPrint(List<RankDTO> list) {
+		for(int i = 0, k = list.size(); i < k ; i++ ) {
+			System.out.println((i+1) + ". " + list.get(i).getProduct_name()
+					+ "(매출총액"+ list.get(i).getTotal_sales() + ", 매출순위" + list.get(i).getSales_rank()  + ")");
+		}
+		
+	}
+	
 	
 	/**
 	 * 주문 리스트 출력

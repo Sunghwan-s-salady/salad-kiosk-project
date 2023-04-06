@@ -8,6 +8,7 @@ import model.dao.ManagerDAO;
 import model.dao.ManagerDAOImpl;
 import model.dto.MenuDTO;
 import model.dto.OrderDTO;
+import model.dto.RankDTO;
 import view.FailView;
 import view.SuccessView;
 
@@ -92,6 +93,14 @@ public class ManagerController {
 		}
 	}
 
+	public static void rankMenu(int category ) {
+		try {
+			List<RankDTO> result = manager.RankMenu(category);
+			SuccessView.selectRankPrint(result);
+		}catch(DMLException e) {
+			FailView.errorMessage(e.getMessage());
+		}
+	}
 	
 //	/**
 //	 * @author 서은효 
