@@ -39,7 +39,10 @@ public class ManagerView {
 		}
 		sc.close();
 	}
-
+	
+	/**
+	 * 관리자 메뉴
+	 * */
 	public static void displayService() {
 		boolean flag = true;
 		while (flag) {

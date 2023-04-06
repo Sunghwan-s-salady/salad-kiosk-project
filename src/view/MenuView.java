@@ -49,7 +49,6 @@ public class MenuView {
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
-			sc.close();
 		}
 	}
 
@@ -62,6 +61,14 @@ public class MenuView {
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============메인메뉴==============");
+			// 현재 장바구니 보여주기
+			System.out.print("현재 장바구니 상품 :");
+			for (MenuDTO me : purchase_List) {
+				System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+			}
+			System.out.println();
+			System.out.println("현재까지 가격 : " + cost);
+			
 			CustomerController.selectMainMenu();
 			System.out.println("0. 이전으로 ");
 			try {
@@ -93,20 +100,11 @@ public class MenuView {
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
 				
-				// 현재 장바구니 보여주기
-				System.out.print("현재 장바구니 상품 :");
-				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
-				}
-				System.out.println();
-				System.out.println("현재까지 가격 : " + cost);
-				
 				// 토핑추가화면으로
 				ToppingMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
-			sc.close();
 		}
 	}
 
@@ -118,6 +116,13 @@ public class MenuView {
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============토핑 추가==============");
+			// 현재 장바구니 보여주기
+			System.out.print("현재 장바구니 상품 :");
+			for (MenuDTO me : purchase_List) {
+				System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+			}
+			System.out.println();
+			System.out.println("현재까지 가격 : " + cost);
 			CustomerController.selectTopping();
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
@@ -151,20 +156,11 @@ public class MenuView {
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
 
-				// 현재 장바구니 보여주기
-				System.out.print("현재 장바구니 상품 :");
-				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
-				}
-				System.out.println();
-				System.out.println("현재까지 가격 : " + cost);
-				
 				// 사이드 화면으로
 				SideMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
-			sc.close();
 		}
 	}
 
@@ -176,6 +172,14 @@ public class MenuView {
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============사이드메뉴==============");
+			// 현재 장바구니 보여주기
+			System.out.print("현재 장바구니 상품 :");
+			for (MenuDTO me : purchase_List) {
+				System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+			}
+			System.out.println();
+			System.out.println("현재까지 가격 : " + cost);
+			
 			CustomerController.selectSideMenu();
 			System.out.println("99. 추가 안함");
 			System.out.println("0. 이전으로 ");
@@ -211,21 +215,12 @@ public class MenuView {
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
 				
-				// 장바구니 보여주기
-				System.out.println("현재 장바구니 상품");
-				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
-				}
-				System.out.println();
-				System.out.println("현재까지 가격 : " + cost);
-				
 				// 결제 화면으로
 				SelectPayment();
 				
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
-			sc.close();
 		}
 	}
 
@@ -237,7 +232,13 @@ public class MenuView {
 		boolean flag = true;
 		while (flag) {
 			System.out.println("==============결제==============");
-//  			for(MenuDTO side : sideList){}
+			// 현재 장바구니 보여주기
+			System.out.print("현재 장바구니 상품 :");
+			for (MenuDTO me : purchase_List) {
+				System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
+			}
+			System.out.println();
+			System.out.println("현재까지 가격 : " + cost);
 			System.out.println("1. 결제");
 			System.out.println("2. 추가 구매");
 			System.out.println("0. 처음으로 ");
@@ -270,6 +271,5 @@ public class MenuView {
 				System.out.println("숫자만 가능합니다.");
 			}
 		}
-		sc.close();
 	}
 }
