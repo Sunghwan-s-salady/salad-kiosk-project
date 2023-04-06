@@ -52,7 +52,8 @@ public class ManagerView {
 			System.out.println("3. 메뉴 삭제");
 			System.out.println("4. 메뉴 변경");
 			System.out.println("5. 주문 내역 확인");
-			System.out.println("6. 로그아웃");
+			System.out.println("6. 주문카테고리별 순위 확인");
+			System.out.println("7. 로그아웃");
 			System.out.print("선택: ");
 
 			int choice = sc.nextInt();
@@ -80,6 +81,10 @@ public class ManagerView {
 				ManagerController.selectOrderAll();
 				break;
 			case 6:
+				System.out.println("카테고리별 주문 랭크를 확인하였습니다. ");
+				popularMenu();
+				break;
+			case 7:
 				System.out.println("로그아웃을 선택하였습니다");
 				LogOut();
 				flag = false;
@@ -147,9 +152,22 @@ public class ManagerView {
 	
 		ManagerController.menuUpdate(productName, updatecolumn, updatecontent);
 	}
+	/**
+	 * 6. 카테고리별 가장 많이 인기있는 제품 확인
+	 */
+	
+	public static void popularMenu() {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("조회할 카테고리를 입력해주세요(샐러드:1, 토핑:2, 사이드:3)");
+		int category= Integer.parseInt(sc.nextLine());
+	
+		ManagerController.rankMenu(category);
+	}
+
 
 	/**
-	 * 6.로그아웃
+	 * 7.로그아웃
 	 */
 	public static void LogOut() {
 		System.out.println("로그아웃 되었습니다.");
