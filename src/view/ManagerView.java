@@ -3,11 +3,9 @@ package view;
 /**
  * @author hyein
  */
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
-import model.dao.ManagerDAO;
-import model.dao.ManagerDAOImpl;
+
 import model.dto.MenuDTO;
 import controller.ManagerController;
 
@@ -25,9 +23,9 @@ public class ManagerView {
 
 		System.out.println("=====로그인=====");
 		while (!logIn) {
-			System.out.println("아이디 : ");
+			System.out.print("아이디 : ");
 			String id = sc.nextLine();
-			System.out.println("비밀번호 : ");
+			System.out.print("비밀번호 : ");
 			String pw = sc.nextLine();
 
 			if (id.equals(adminId) && pw.equals(adminPw)) {
@@ -39,11 +37,12 @@ public class ManagerView {
 				MainView.main(null);
 			}
 		}
-
+		sc.close();
 	}
 
 	public static void displayService() {
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			Scanner sc = new Scanner(System.in);
 			System.out.println("===== 관리자 서비스 =====");
 			System.out.println("1. 전체 메뉴 확인");
@@ -60,8 +59,7 @@ public class ManagerView {
 			switch (choice) {
 			case 1:
 				System.out.println("전체 메뉴 확인을 선택하였습니다");
-				ManagerController.selectMenuAl1();
-
+				ManagerController.selectMenuAll();
 				break;
 			case 2:
 				System.out.println("메뉴 추가를 선택하였습니다");
@@ -82,13 +80,14 @@ public class ManagerView {
 			case 6:
 				System.out.println("로그아웃을 선택하였습니다");
 				LogOut();
-
+				flag = false;
+				break;
 			default:
 				System.out.println("잘못되었습니다..다시 입력해주세요.");
 
 			}
+			sc.close();
 		}
-
 	}
 
 	/**
@@ -108,12 +107,13 @@ public class ManagerView {
 
 		System.out.println("새로운 메뉴의 가격은 입력하세요");
 		int price = Integer.parseInt(sc.nextLine());
+		
 		System.out.println("새로운 메뉴의 분류를 입력하세요");
 		int category = Integer.parseInt(sc.nextLine());
 
 		MenuDTO menu = new MenuDTO(productCode, productName, price, category);
 		ManagerController.menuInsert(menu);
-
+		sc.close();
 	}
 
 	/**
@@ -124,6 +124,7 @@ public class ManagerView {
 		System.out.println("삭제하는 메뉴의 이름를 입력하세요");
 		String productName = sc.nextLine();
 		ManagerController.menuDelete(productName);
+		sc.close();
 	}
 
 	/**
@@ -144,6 +145,7 @@ public class ManagerView {
 		
 	
 		ManagerController.menuUpdate(productName, updatecolumn, updatecontent);
+		sc.close();
 	}
 
 	/**

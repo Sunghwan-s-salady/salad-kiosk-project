@@ -22,7 +22,7 @@ public class ManagerController {
 	 * 관리자에서 모든 메뉴를 조회한다.
 	 * 메뉴가 없을 일은 없다.  
 	 */
-	public static void selectMenuAl1() {
+	public static void selectMenuAll() {
 		
 		List<MenuDTO> menuList = manager.selectMenuAll();
 		SuccessView.selectMenuPrint(menuList);

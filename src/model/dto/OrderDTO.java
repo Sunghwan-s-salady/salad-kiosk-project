@@ -1,7 +1,5 @@
 package model.dto;
 
-import view.MenuView;
-
 public class OrderDTO {
 
 	private String orderCode;

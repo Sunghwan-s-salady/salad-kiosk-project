@@ -8,7 +8,8 @@ import controller.CustomerController;
 import model.dto.MenuDTO;
 
 public class MenuView {
-
+	
+	// 변수 선언
 	public static String place;
 	public static List<MenuDTO> purchase_List = new ArrayList<>();
 	public static int cost;
@@ -17,6 +18,7 @@ public class MenuView {
 	 * 포장 방법 선택
 	 */
 	public static void Instore() {
+		// 처음화면 가격 초기화 (처음화면 => 장바구니 초기화)
 		cost = 0;
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
@@ -47,6 +49,7 @@ public class MenuView {
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
+			sc.close();
 		}
 	}
 
@@ -64,14 +67,13 @@ public class MenuView {
 			try {
 				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
-
-				// mainList.size보다 menu가 크면 다시 선택
+				// mainList.size보다 menu가 크면 다시 선택 (범위를 벗어남)
 				if (menu > CustomerController.mainList.size()) {
 					System.out.println("잘못된 입력입니다.");
-					CustomerController.mainList = null;
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
+//					가장 최근 추가 된 내용 + 전에 추가 안함을 선택해서 넘어오지 않았다면 (이전 추가 품목의 카테고리가 현재와 같다면)
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 1) {
 						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
@@ -82,23 +84,29 @@ public class MenuView {
 
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
-				// 해당 메뉴의 숫자를 클릭하면 mainList.get(숫자 - 1)의 (상품코드) 데이터(DTO)를 purchase_List에 넣고 다음
-				// 화면?(토핑)
-
+				
+				// 현재 선택한 데이터의 가격 * 수량을 총액에 더함
 				cost += (CustomerController.mainList.get(menu - 1).getPrice()) * cnt;
-				System.out.println("현재 장바구니 상품");
+				
+				// 현재 장바구니에 메뉴 추가 + 수량
 				MenuDTO sub = CustomerController.mainList.get(menu - 1);
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
+				
+				// 현재 장바구니 보여주기
+				System.out.print("현재 장바구니 상품 :");
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +  me.getCount() + " ");
+					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
+				
+				// 토핑추가화면으로
 				ToppingMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
+			sc.close();
 		}
 	}
 
@@ -116,7 +124,7 @@ public class MenuView {
 			try {
 				System.out.print("입력 : ");
 				int menu = Integer.parseInt(sc.nextLine());
-				// toppList.size보다 menu가 크면 다시 선택
+				// toppList.size보다 menu가 크면 다시 선택 (범위를 벗어남)
 				if (menu == 99) {
 					SideMainMenu();
 					continue;
@@ -125,6 +133,7 @@ public class MenuView {
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
+//					가장 최근 추가 된 내용 + 전에 추가 안함을 선택해서 넘어오지 않았다면 (이전 추가 품목의 카테고리가 현재와 같다면)
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 2) {
 						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
@@ -134,21 +143,28 @@ public class MenuView {
 				}
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
-				// 해당 메뉴의 숫자를 클릭하면 toppList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
+				// 현재 선택한 데이터의 가격 * 수량을 총액에 더함
 				cost += (CustomerController.toppList.get(menu - 1).getPrice()) * cnt;
-				System.out.println("현재 장바구니 상품");
+				
+				// 현재 장바구니에 메뉴 추가 + 수량
 				MenuDTO sub = CustomerController.toppList.get(menu - 1);
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
+
+				// 현재 장바구니 보여주기
+				System.out.print("현재 장바구니 상품 :");
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +  me.getCount() + " ");
+					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
+				
+				// 사이드 화면으로
 				SideMainMenu();
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
+			sc.close();
 		}
 	}
 
@@ -175,7 +191,7 @@ public class MenuView {
 					continue;
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
-//					purchase_List.remove(purchase_List.size() - 1);
+//					가장 최근 추가 된 내용 + 전에 추가 안함을 선택해서 넘어오지 않았다면 (이전 추가 품목의 카테고리가 현재와 같다면)
 					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 3) {
 						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
 						purchase_List.remove(purchase_List.size() - 1);
@@ -187,22 +203,29 @@ public class MenuView {
 				System.out.print("수량을 입력하세요 : ");
 				int cnt = Integer.parseInt(sc.nextLine());
 
-				// 해당 메뉴의 숫자를 클릭하면 sideList.get(숫자 - 1)의 데이터(DTO)를 purchase_List에 넣고 다음 화면?(토핑)
-				// 임시
+				// 현재 선택한 데이터의 가격 * 수량을 총액에 더함
 				cost += (CustomerController.sideList.get(menu - 1).getPrice()) * cnt;
-				System.out.println("현재 장바구니 상품");
+				
+				// 현재 장바구니에 메뉴 추가 + 수량
 				MenuDTO sub = CustomerController.sideList.get(menu - 1);
 				MenuDTO men = new MenuDTO(sub.getProductCode(),sub.getProductName(),sub.getPrice(),sub.getCategory(),cnt);
 				purchase_List.add(men);
+				
+				// 장바구니 보여주기
+				System.out.println("현재 장바구니 상품");
 				for (MenuDTO me : purchase_List) {
-					System.out.print(me.getProductName() +  me.getCount() + " ");
+					System.out.print(me.getProductName() +" "+  me.getCount() + "개 ");
 				}
 				System.out.println();
 				System.out.println("현재까지 가격 : " + cost);
+				
+				// 결제 화면으로
 				SelectPayment();
+				
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
+			sc.close();
 		}
 	}
 
@@ -224,18 +247,21 @@ public class MenuView {
 				switch (menu) {
 				case 1:
 					System.out.println("결제가 완료 되었습니다.");
-					// 여기서 insert
+					// 여기서 DB데이터에 insert
 					CustomerController.insertOrdersList();
 					CustomerController.orderDetailInsert();
 					
+					// 초기 화면 진입시 장바구니 초기화
 					purchase_List = null;
 					Instore();
 					break;
 				case 2:
 					System.out.println("추가 구매");
+					// 메인 메뉴 선택부터
 					SelectMainMenu();
 					break;
 				case 0:
+					// 초기 화면 진입시 장바구니 초기화
 					purchase_List = null;
 					Instore();
 					break;
@@ -244,5 +270,6 @@ public class MenuView {
 				System.out.println("숫자만 가능합니다.");
 			}
 		}
+		sc.close();
 	}
 }

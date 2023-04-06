@@ -3,7 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.DMLException;
 import exception.SearchWrongException;
 import model.dao.CustomerDAO;
 import model.dao.CustomerDAOImpl;
@@ -64,10 +63,6 @@ public class CustomerController {
     * */
 	public static int insertOrdersList() throws SearchWrongException {
 		int result = 0;
-		
-		MenuDTO menuDTO = new MenuDTO();
-		// 이 놈 안에 MenuDTO가 있어 => 이거로  OrderDetailDTO를 만들어 
-		
 		
 		OrderDTO order = new OrderDTO(MenuView.cost, MenuView.place);
 		customerDAO.insertOrdersList(order);

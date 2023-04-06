@@ -207,7 +207,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		String productCode = orderDetail.getProductCode();
 		int orderCount = orderDetail.getOrderCount();
 		int orderPrice = orderDetail.getOrderPrice();
-		String orderCode = orderDetail.getOrderCode();
 		
 		try {
 			
