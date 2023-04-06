@@ -23,9 +23,9 @@ KB IT's your life 5조 미니프로젝트
  
  ## 개발 환경 
   - 언어 : ava 11 , OracleDataBase 21C XE
-  - 개발 Tool : eclipse 
+  - 개발 Tool : eclipse IDE , SQL DEVELOPER
   - DB : Oracle
-  - 협업 Tool : Github
+  - 협업 Tool : Github, Matter Most, Kakao Talk
   
   ![image](https://user-images.githubusercontent.com/89370421/230291412-c3b76a43-c7c5-4370-9895-ad73ebad4e79.png)
 
