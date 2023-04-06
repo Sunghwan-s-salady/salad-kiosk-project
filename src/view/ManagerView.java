@@ -18,8 +18,8 @@ public class ManagerView {
 
 		Scanner sc = new Scanner(System.in);
 		boolean logIn = false;
-		String adminId = "a";
-		String adminPw = "a";
+		String adminId = "salad";
+		String adminPw = "salad";
 
 		System.out.println("=====로그인=====");
 		while (!logIn) {
@@ -37,7 +37,6 @@ public class ManagerView {
 				MainView.main(null);
 			}
 		}
-		sc.close();
 	}
 	
 	/**
@@ -89,7 +88,6 @@ public class ManagerView {
 				System.out.println("잘못되었습니다..다시 입력해주세요.");
 
 			}
-			sc.close();
 		}
 	}
 
@@ -116,7 +114,7 @@ public class ManagerView {
 
 		MenuDTO menu = new MenuDTO(productCode, productName, price, category);
 		ManagerController.menuInsert(menu);
-		sc.close();
+
 	}
 
 	/**
@@ -127,7 +125,7 @@ public class ManagerView {
 		System.out.println("삭제하는 메뉴의 이름를 입력하세요");
 		String productName = sc.nextLine();
 		ManagerController.menuDelete(productName);
-		sc.close();
+
 	}
 
 	/**
@@ -148,7 +146,6 @@ public class ManagerView {
 		
 	
 		ManagerController.menuUpdate(productName, updatecolumn, updatecontent);
-		sc.close();
 	}
 
 	/**
