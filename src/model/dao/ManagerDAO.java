@@ -55,11 +55,19 @@ public interface ManagerDAO {
 	/**
 	 * @author 서은효
 	 * @return MenuDTO
+	 * @param String productcode
 	 * 관리자에서 product_code로 특정 주문 조회하기 
 	 * **/
 	MenuDTO selectMenuOne(String productcode);
 
 	
+	/***
+	 * @author 서은효
+	 * @return List<RankDTO>
+	 * @param int category 
+	 * 주문 테이블을 참조해 제품 코드 별 판매 총액을 구한다. 
+	 * 판매 총액 별로 순위를 매겨 그에 해당하는 제품 명을 select
+	 */
 	List<RankDTO> RankMenu(int category);
 	
 }

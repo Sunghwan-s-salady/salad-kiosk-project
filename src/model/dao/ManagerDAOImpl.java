@@ -56,9 +56,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 			}
 			
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
-			throw new SearchWrongException("(관리자) 주문 전체 검색 오류 ");
+			throw new SearchWrongException("(관리자) 주문 전체 검색에 문제가 발생했습니다. ");
 		}finally {
 			DBManager.releaseConnection(con, ps, rs);
 		}
@@ -99,9 +97,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 			}
 			
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
-			throw new SearchWrongException("(관리자) 메뉴 전체 검색 오류 ");
+			throw new SearchWrongException("(관리자) 메뉴 전체 검색에 문제가 발생했습니다. ");
 		}finally {
 			DBManager.releaseConnection(con, ps, rs);
 		}
@@ -125,10 +121,10 @@ public class ManagerDAOImpl implements ManagerDAO {
 		int result  = 0;
 
 		String sql = "insert into Menu (product_code, product_name, price, category) values("+
-		"'" + menuDTO.getProductCode()+"'"+","+
-		"'" +menuDTO.getProductName()+"',"+
-		menuDTO.getPrice()+","+
-		menuDTO.getCategory()+")";
+				"CONCAT('P', TO_CHAR(product_code_seq.NEXTVAL, 'FM000')),"
+				+"'"+menuDTO.getProductName()+"',"+
+				menuDTO.getPrice()+","+
+				menuDTO.getCategory()+")";
 		
 		try {
 			con = DBManager.getConnection();
@@ -136,9 +132,8 @@ public class ManagerDAOImpl implements ManagerDAO {
 			result = ps.executeUpdate();
 	
 		}catch(SQLException e ) {
-			//삭제 
 			e.printStackTrace();
-			throw new DMLException("(관리자) 메뉴 삽입 오류 ");
+			throw new DMLException("(관리자) 메뉴 삽입에 문제가 발생했습니다.  ");
 		}finally {
 			DBManager.releaseConnection(con, ps);
 		}
@@ -166,9 +161,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 			result = ps.executeUpdate();
 	
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
-			throw new DMLException("(관리자) 메뉴 삭제 오류 ");
+			throw new DMLException("(관리자) 메뉴 삭제에 문제가 발생했습니다.  ");
 		}finally {
 			DBManager.releaseConnection(con, ps);
 		}
@@ -184,7 +177,7 @@ public class ManagerDAOImpl implements ManagerDAO {
 	 * @param menuDTO, updateMenu( 어떤 컬럼을 수정할 것인가?) 
 	 * "update Menu set product_name = " + "'" + updateContent + "'"
 				+ " where product_name = "+ "'" + name + "'"
-	 * **/
+	 ***/
 	@Override
 	public int updateMenu(String name, String updateMenu, String updateContent) {
 		
@@ -205,17 +198,15 @@ public class ManagerDAOImpl implements ManagerDAO {
 			else if(updateMenu.equals("분류"))
 				sql = "update Menu set category = "+ updateContent 
 						+ " where product_name = "+ "'" + name + "'";
-			else throw new DMLException("이름 똑바로 입력해 ");
-
+			
 			con = DBManager.getConnection();
 			ps = con.prepareStatement(sql);
 			result = ps.executeUpdate();
 	
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
-			throw new DMLException("(관리자) 메뉴 수정 오류 ");
-		}finally {
+			throw new DMLException("(관리자) 메뉴 수정에 오류가 발생했습니다.");
+		}
+		finally {
 			DBManager.releaseConnection(con, ps);
 		}
 		
@@ -253,15 +244,22 @@ public class ManagerDAOImpl implements ManagerDAO {
 			}
 			
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
-			throw new SearchWrongException("(관리자) 특정 주문 검색 오류 ");
+			throw new SearchWrongException("(관리자) 특정 주문 검색 오류\n");
 		}finally {
 			DBManager.releaseConnection(con, ps, rs);
 		}
 		
 		return menuDTO;
 	}
+	
+	
+	/***
+	 * @author 서은효
+	 * @return List<RankDTO>
+	 * @param int category 
+	 * 판매 총액 별로 순위를 매겨 그에 해당하는 제품 명을 select
+	 * 
+	 */
 	@Override
 	public List<RankDTO> RankMenu(int category) {
 		Connection con = null;
@@ -297,8 +295,6 @@ public class ManagerDAOImpl implements ManagerDAO {
 			}
 			
 		}catch(SQLException e ) {
-			//삭제 
-			e.printStackTrace();
 			throw new SearchWrongException("(관리자) 랭크 매김 오류 ");
 		}finally {
 			DBManager.releaseConnection(con, ps, rs);

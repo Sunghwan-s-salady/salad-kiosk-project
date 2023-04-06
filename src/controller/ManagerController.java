@@ -71,7 +71,9 @@ public class ManagerController {
 			int result = manager.deleteMenu(productName);
 			if(result == 1) 
 				SuccessView.messagePrint("메뉴가 성공적으로 삭제되었습니다.");
-			
+			else {
+				SuccessView.messagePrint("해당하는 이름의 메뉴가 존재하지 않습니다.");
+			}
 		}catch(DMLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
@@ -86,13 +88,22 @@ public class ManagerController {
 		try {
 			int result = manager.updateMenu(name, updateMenu, updateContent);
 			if(result == 1) {
-				SuccessView.messagePrint("메뉴가 성공적으로 수정되었습니다.");
+				SuccessView.messagePrint("메뉴가 성공적으로 수정되었습니다.\n");
 			}
+			else
+				FailView.errorMessage("***메뉴가 없습니다.***\n");
 		}catch(DMLException e) {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
 
+	
+	
+	/**
+	 * @author 서은효 
+	 * @param int category
+	 * 관리자에서 판매 순위 확인
+	 */
 	public static void rankMenu(int category ) {
 		try {
 			List<RankDTO> result = manager.RankMenu(category);
@@ -101,23 +112,7 @@ public class ManagerController {
 			FailView.errorMessage(e.getMessage());
 		}
 	}
-	
-//	/**
-//	 * @author 서은효 
-//	 * @return MenuDTO
-//	 * 관리자에서 productCode로 특정 메뉴를 조회한다. 
-//	 * - productCode가 잘못되거나 productCode에 해당하는 주문이 없을 수 있음
-//	 * - 주문이 없을 수도 있음   
-//	 */
-//	public static void selectMenuOne() {
-//		//MenuDTO selectMenuOne(String productcode);
-//		try {
-//			
-//		}catch(SearchWrongException e) {
-//			
-//		}
-//		
-//	}
+
 	
 
 	

@@ -13,6 +13,7 @@ public class MenuView {
 	public static String place;
 	public static List<MenuDTO> purchase_List = new ArrayList<>();
 	public static int cost;
+	static boolean fl;
 
 	/**
 	 * 포장 방법 선택
@@ -22,14 +23,15 @@ public class MenuView {
 		cost = 0;
 		Scanner sc = new Scanner(System.in);
 		boolean flag = true;
+		fl = true;
 		while (flag) {
-			System.out.println("==============먹고가기==============");
+			System.out.println("==============주문하기==============");
 			System.out.println("1. 매장");
 			System.out.println("2. 포장");
 			System.out.println("0. 처음으로 ");
 			try {
 				System.out.print("입력 : ");
-				int menu = Integer.parseInt(sc.nextLine());//
+				int menu = Integer.parseInt(sc.nextLine());
 				switch (menu) {
 				case 1:
 					place = "매장";
@@ -46,9 +48,11 @@ public class MenuView {
 					System.out.println("해당하는 번호의 입력이 없습니다.");
 					break;
 				}
+
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
+			
 		}
 	}
 
@@ -83,9 +87,11 @@ public class MenuView {
 				} else if (menu == 0) {
 //					만약 이전 단계로 돌아가게 된다면 방금 주문 내역 제거
 //					가장 최근 추가 된 내용 + 전에 추가 안함을 선택해서 넘어오지 않았다면 (이전 추가 품목의 카테고리가 현재와 같다면)
-					if (purchase_List.get(purchase_List.size() - 1).getCategory() == 1) {
-						cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
-						purchase_List.remove(purchase_List.size() - 1);
+					if (purchase_List.size() > 0 ) {						
+						if (purchase_List.get(purchase_List.size() - 1).getCategory() == 1) {
+							cost -= (purchase_List.get(purchase_List.size() - 1).getPrice()) * (purchase_List.get(purchase_List.size() - 1).getCount());
+							purchase_List.remove(purchase_List.size() - 1);
+						}
 					}
 					flag = false;
 					break;
@@ -104,6 +110,10 @@ public class MenuView {
 				
 				// 토핑추가화면으로
 				ToppingMainMenu();
+				
+				if(fl == false) {
+					break;
+				}
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -160,6 +170,10 @@ public class MenuView {
 
 				// 사이드 화면으로
 				SideMainMenu();
+				
+				if(fl == false) {
+					break;
+				}
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -219,7 +233,9 @@ public class MenuView {
 				
 				// 결제 화면으로
 				SelectPayment();
-				
+				if(fl == false) {
+					break;
+				}
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
 			}
@@ -256,7 +272,8 @@ public class MenuView {
 					
 					// 초기 화면 진입시 장바구니 초기화
 					purchase_List = new ArrayList<>();
-					Instore();
+					cost = 0;
+					fl = false;
 					break;
 				case 2:
 					System.out.println("추가 구매");
@@ -266,11 +283,15 @@ public class MenuView {
 				case 0:
 					// 초기 화면 진입시 장바구니 초기화
 					purchase_List = new ArrayList<>();
-					Instore();
+					cost = 0;
+					fl = false;
 					break;
 				}
 			} catch (NumberFormatException e) {
 				System.out.println("숫자만 가능합니다.");
+			}
+			if(fl == false) {
+				break;
 			}
 		}
 	}

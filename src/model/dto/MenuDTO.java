@@ -27,7 +27,13 @@ public class MenuDTO {
 		this.category = category;
 		this.count = count;
 	}
+	public MenuDTO( String productName, int price, int category) {
+	
+		this.productName = productName;
+		this.price = price;
+		this.category = category;
 
+	}
 	public MenuDTO(String productCode, String productName, int price, int category) {
 		this.productCode = productCode;
 		this.productName = productName;
